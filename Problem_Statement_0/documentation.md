@@ -8,7 +8,8 @@
 **Key concepts involved:** 
 - Dividing functions into a piecewise function for different types of inputs
 - Approximating functions using Taylor polynomials
-- Trignometric identities 
+- Trignometric identities
+  
 **My approach:** 
 
 - The arithematic functions were implemented directily, except the divide function which checks if the denominator is zero and then prints a error message
