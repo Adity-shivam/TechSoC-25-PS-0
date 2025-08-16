@@ -14,11 +14,11 @@ void take_input(char string[MAXCHAR]) {
 void encode(char INPUT[MAXCHAR], char OUTPUT[MAXCHAR]) {
   int i = 0;
   while (INPUT[i] != '\0') {
-    if ((INPUT[i] >= 'a' && INPUT[i] <= 'w') ||
-        (INPUT[i] >= 'A' && INPUT[i] <= 'W')) {
+    if ((INPUT[i] >= 'a' && INPUT[i] <= 'z' - SHIFT) ||
+        (INPUT[i] >= 'A' && INPUT[i] <= 'Z' - SHIFT)) {
       OUTPUT[i] = INPUT[i] + SHIFT;
-    } else if ((INPUT[i] >= 'x' && INPUT[i] <= 'z') ||
-               (INPUT[i] >= 'X' && INPUT[i] <= 'Z')) {
+    } else if ((INPUT[i] > 'z' - SHIFT && INPUT[i] <= 'z') ||
+               (INPUT[i] > 'Z' - SHIFT && INPUT[i] <= 'Z')) {
       OUTPUT[i] = INPUT[i] - 26 + SHIFT;
     } else {
       OUTPUT[i] = INPUT[i];
@@ -30,11 +30,11 @@ void encode(char INPUT[MAXCHAR], char OUTPUT[MAXCHAR]) {
 void decode(char INPUT[MAXCHAR], char OUTPUT[MAXCHAR]) {
   int i = 0;
   while (INPUT[i] != '\0') {
-    if ((INPUT[i] >= 'd' && INPUT[i] <= 'z') ||
-        (INPUT[i] >= 'D' && INPUT[i] <= 'Z')) {
+    if ((INPUT[i] >= 'a' + SHIFT && INPUT[i] <= 'z') ||
+        (INPUT[i] >= 'A' + SHIFT && INPUT[i] <= 'Z')) {
       OUTPUT[i] = INPUT[i] - SHIFT;
-    } else if ((INPUT[i] >= 'a' && INPUT[i] <= 'c') ||
-               (INPUT[i] >= 'A' && INPUT[i] <= 'C')) {
+    } else if ((INPUT[i] >= 'a' && INPUT[i] < 'a' + SHIFT) ||
+               (INPUT[i] >= 'A' && INPUT[i] < 'A' + SHIFT)) {
       OUTPUT[i] = INPUT[i] - SHIFT + 26;
     } else {
       OUTPUT[i] = INPUT[i];
@@ -43,17 +43,19 @@ void decode(char INPUT[MAXCHAR], char OUTPUT[MAXCHAR]) {
   }
 }
 
-/*We can also use this program as a system utility by piping and combining it with some shell () commands
- To encode a file say caeser_cipher.case 
- bash 
- (echo e && cat caesar_cipher.c) |./a.out | tail -n +3 > encoded.c 
+/*We can also use this program as a system utility by piping and combining it
+ with some shell () commands To encode a file say caeser_cipher.c
+ bash (echo
+ e && cat caesar_cipher.c) |./a.out | tail -n +3 > encoded.c
 
- echo e && cat caeser_cipher.c prints e followed by the contents of the file 
- | means to use the output of the previous command as the input of the next command
- we pipe the file prefixed with a e to our program which will then encode it but it will also print 2 additional line of (Instruction\n) which we remove using the tail -n + 3 command
- finally we use > to put this output into the encoded.c file
- 
- Similarly we can use 
+ echo e && cat caeser_cipher.c prints e followed by the contents of the file
+ | means to use the output of the previous command as the input of the next
+ command we pipe the file prefixed with a e to our program which will then
+ encode it but it will also print 2 additional line of (Instruction\n) which we
+ remove using the tail -n + 3 command finally we use > to put this output into
+ the encoded.c file
+
+ Similarly we can use
  bash
  (echo d && cat encoded.c) | ./a.out | tail -n +3 > decoded.c
   */
