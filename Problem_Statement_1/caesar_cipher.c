@@ -25,6 +25,7 @@ void encode(char INPUT[MAXCHAR], char OUTPUT[MAXCHAR], int shift) {
     }
     i++;
   }
+  OUTPUT[i] = '\0';
 }
 
 void decode__(char INPUT[MAXCHAR], char OUTPUT[MAXCHAR], int shift) {
@@ -41,6 +42,7 @@ void decode__(char INPUT[MAXCHAR], char OUTPUT[MAXCHAR], int shift) {
     }
     i++;
   }
+  OUTPUT[i] = '\0';
 }
 
 /*We can also use this program as a system utility by piping and combining it
@@ -68,8 +70,7 @@ void get_freq(char INPUT[MAXCHAR], double frequency[26]) {
     if (INPUT[i] >= 'a' && INPUT[i] <= 'z') {
       frequency[INPUT[i] - 'a']++;
       count++;
-    }
-    else if (INPUT[i] >= 'A' && INPUT[i] <= 'Z') {
+    } else if (INPUT[i] >= 'A' && INPUT[i] <= 'Z') {
       frequency[INPUT[i] - 'A']++;
       count++;
     }
@@ -112,8 +113,6 @@ int decode_shift(char string[MAXCHAR]) {
   double minimum;
   int shift = 0;
   int calc_shift = 0;
-
-  take_input(string);
 
   decode__(string, temp, shift);
   get_freq(temp, shifted_freq);
